@@ -16,8 +16,7 @@ size_t len = 0;
 
 // Print out the Usage information to stderr
 //
-void
-usage()
+void usage()
 {
   fprintf(stderr,"Usage: predictor <options> [<trace>]\n");
   fprintf(stderr,"       bunzip -kc trace.bz2 | predictor <options>\n");
@@ -36,9 +35,10 @@ usage()
 //
 // Returns True if Successful
 //
-int
-handle_option(char *arg)
+int handle_option(char *arg)
 {
+  printf("%c", *arg);
+
   if (!strcmp(arg,"--static")) {
     bpType = STATIC;
   } else if (!strncmp(arg,"--gshare:",9)) {

@@ -32,11 +32,21 @@ extern const char *email;
 #define CUSTOM      3
 extern const char *bpName[];
 
+// Definition of tournament counters
+// switch when there are two successive mispredictions
+// https://www.cs.umd.edu/~meesh/411/CA-online/chapter/dynamic-branch-prediction/index.html
+#define SL  0   // strong local
+#define WL  1   // weak local
+#define WG  2   // weak global
+#define SG  3   // strong global
+#define SEL_THRESHOLD   2
+
 // Definitions for 2-bit counters
 #define SN  0			// predict NT, strong not taken
 #define WN  1			// predict NT, weak not taken
 #define WT  2			// predict T, weak taken
 #define ST  3			// predict T, strong taken
+#define PRED_THRESHOLD  2
 
 //------------------------------------//
 //      Predictor Configuration       //
@@ -66,5 +76,10 @@ uint8_t make_prediction(uint32_t pc);
 // indicates that the branch was not taken)
 //
 void train_predictor(uint32_t pc, uint8_t outcome);
+
+// increment or decrement value
+// if the value is greater than bound or lower than bound, then set to the bound
+uint32_t increment(uint32_t value, uint32_t bound);
+uint32_t decrement(uint32_t value, uint32_t bound);
 
 #endif
